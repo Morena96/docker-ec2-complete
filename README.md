@@ -69,3 +69,21 @@ docker run -p 8000:8080 django-ec2-complete:latest
 ```
 
 The application will be available at `http://localhost:8000` 
+
+### 🚀 AWS ECR Deployment
+
+To push the Docker image to Amazon ECR:
+
+```bash
+# Create ECR repository
+aws ecr create-repository --repository-name docker-ec2-complete
+
+# Login to ECR
+docker login -u AWS -p $(aws ecr get-login-password --region us-east-1) 412171424884.dkr.ecr.us-east-1.amazonaws.com/docker-ec2-complete
+
+# Tag the Docker image
+docker tag docker-ec2-complete:latest 412171424884.dkr.ecr.us-east-1.amazonaws.com/docker-ec2-complete:latest
+
+# Push the image to ECR
+docker push 412171424884.dkr.ecr.us-east-1.amazonaws.com/docker-ec2-complete:latest
+```
